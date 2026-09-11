@@ -47,62 +47,57 @@ begin
             s1_7seg => s1_7seg 
         );
 
-    -- 100Hz clock
     clock_process: process
     begin
         while true loop
             clk <= '0';
-            wait for 5 ms;
+            wait for 10 ns;
 
             clk <= '1';
-            wait for 5 ms;
+            wait for 10 ns;
         end loop;
     end process;
 
     stimulus_process: process
     begin
         reset_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         reset_button <= '0';
 
         wait for 40 ms;
 
         pause_toggle_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         pause_toggle_button <= '0';
 
         wait for 200 ms;
 
-        -- should not zero cause not paused
         reset_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         reset_button <= '0';
 
         pause_toggle_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         pause_toggle_button <= '0';
 
-        -- should zero
         reset_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         reset_button <= '0';
 
         pause_toggle_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         pause_toggle_button <= '0';
 
         wait for 200 ms;
 
-        -- should pause
         pause_toggle_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         pause_toggle_button <= '0';
 
         wait for 100 ms;
 
-        -- should unpause
         pause_toggle_button <= '1';
-        wait for 30 ms;
+        wait for 35 ms;
         pause_toggle_button <= '0';
 
         wait;
