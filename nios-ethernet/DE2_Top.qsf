@@ -111,6 +111,7 @@ set_location_assignment PIN_AA5 -to DRAM_DQ[15]
 
 # Project Source Files
 set_global_assignment -name VHDL_FILE DE2_Top.vhd
+set_global_assignment -name VERILOG_FILE ip/DM9000A/hdl/Reset_Delay.v
 set_global_assignment -name QIP_FILE nios_system/synthesis/nios_system.qip
 set_global_assignment -name QIP_FILE sdram_pll.qip
 set_global_assignment -name CDF_FILE output_files/Chain1.cdf

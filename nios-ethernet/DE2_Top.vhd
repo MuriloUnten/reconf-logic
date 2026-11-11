@@ -31,6 +31,15 @@ end entity DE2_Top;
 architecture rtl of DE2_Top is
 
     signal sys_clk : std_logic;
+    signal cpu_reset_n : std_logic;
+
+    component Reset_Delay is
+        port (
+            iRST   : in  std_logic;
+            iCLK   : in  std_logic;
+            oRESET : out std_logic
+        );
+    end component Reset_Delay;
 
     component nios_system is
         port (
@@ -74,10 +83,17 @@ begin
             c1     => DRAM_CLK
         );
 
+    u2_reset_delay : component Reset_Delay
+        port map (
+            iRST   => KEY(0),
+            iCLK   => CLOCK_50,
+            oRESET => cpu_reset_n
+        );
+
     u0 : component nios_system
         port map (
             clk_clk => sys_clk,
-            reset_reset_n => KEY(0),
+            reset_reset_n => cpu_reset_n,
             sdram_wire_addr => DRAM_ADDR,
             sdram_wire_ba(0) => DRAM_BA_0,
             sdram_wire_ba(1) => DRAM_BA_1,

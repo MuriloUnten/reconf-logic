@@ -69,36 +69,26 @@ void rx_task(void *pdata) {
     int rx_len;
     char *body_ptr;
     unsigned char *ip_bytes;
-    NET ifp = NULL;
+    NET ifp;
 
     printf("[RX Task] Waiting for IP acquisition via DHCP...\n");
     fflush(stdout);
 
     int seconds = 0;
-    do {
+    while (!iniche_net_ready) {
         OSTimeDlyHMSM(0, 0, 1, 0);
         seconds++;
 
-        ifp = (NET)*(void **)&netlist;
-
         if (seconds <= 5 || seconds % 5 == 0) {
-            printf("  [Debug] Elapsed: %ds | netlist addr: %p | ifp ptr: %p\n",
-                    seconds, (void *)&netlist, (void *)ifp);
+            printf("  [Debug] Elapsed: %ds | iniche_net_ready: %d\n", seconds, iniche_net_ready);
             fflush(stdout);
         }
+    }
 
-        if (ifp == NULL) {
-            if (seconds % 5 == 0) {
-                printf("  [DHCP] Network interface not found by driver (netlist.q_head is NULL).\n");
-                fflush(stdout);
-            }
-        } else {
-            if (seconds % 5 == 0) {
-                printf("  [DHCP] Interface found! IP addr value: %lu\n", (unsigned long)ifp->n_ipaddr);
-                fflush(stdout);
-            }
-        }
-    } while (ifp == NULL || ifp->n_ipaddr == 0);
+    ifp = nets[0];
+    while (ifp->n_ipaddr == 0) {
+        OSTimeDlyHMSM(0, 0, 1, 0);
+    }
 
     ip_bytes = (unsigned char *)&ifp->n_ipaddr;
 
@@ -187,6 +177,7 @@ int main(void) {
     fflush(stdout);
 
     alt_iniche_init();
+    netmain();
 
     req_sem = OSSemCreate(0);
 
