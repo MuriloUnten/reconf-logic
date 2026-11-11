@@ -155,11 +155,13 @@ int main(void) {
 
     // Escreve no registrador de INDEX (offset 0) o endereço do Vendor ID Low (0x2B)
     IOWR_16DIRECT(DM9000A_0_BASE, 0, 0x2B);
+    usleep(20);
     // Lê o dado do registrador de DATA (offset 4)
     int vidl = IORD_16DIRECT(DM9000A_0_BASE, 4);
 
     // Escreve no registrador de INDEX o endereço do Vendor ID High (0x2C)
     IOWR_16DIRECT(DM9000A_0_BASE, 0, 0x2C);
+    usleep(20);
     int vidh = IORD_16DIRECT(DM9000A_0_BASE, 4);
 
     printf("[Debug] Vendor ID L: 0x%X | Vendor ID H: 0x%X\n", vidl, vidh);

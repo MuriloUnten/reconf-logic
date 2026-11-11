@@ -46,8 +46,7 @@
 #define PHY_mode   0x3100  /* set PHY media mode: Auto negotiation
                               (AUTO sense) */
 
-// #define STD_DELAY       20      /* standard delay 20 us */
-#define STD_DELAY 1
+#define STD_DELAY       20      /* standard delay 20 us */
 
 #define DMFE_SUCCESS    0
 #define DMFE_FAIL       1
@@ -62,7 +61,7 @@
 typedef struct dm9000a_dev {
   int      intnum;         /* interrupt this device uses */
   u_long   regbase;        /* base address or IO number for register banks */
-  char     mac_addr[6];    /* MAC address */
+  unsigned char mac_addr[6]; /* MAC address */
   NET      netp;           /* pointer to Interniche NET struct */
   queue    tosend;         /* packets queued for sending */
   

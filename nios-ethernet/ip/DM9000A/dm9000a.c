@@ -170,6 +170,7 @@ static void dm9000a_isr(int iface)
 {
   unsigned char rx_rdy, istatus;
   unsigned int tmp, rx_sts, i, rx_len;
+  unsigned int rx_guard;
   struct ethhdr * eth;
   PACKET pkt;
   DM9KA dm9ka = (DM9KA)nets[iface]->n_local;
@@ -177,8 +178,18 @@ static void dm9000a_isr(int iface)
   istatus = dm9000a_ior(ISR);
   rx_rdy = dm9000a_rxReady(dm9ka);
   usleep(STD_DELAY);
+  rx_guard = 0;
   while(rx_rdy == DM9000_PKT_READY)
   {
+    /* Safety valve: if the chip's status readback is stuck (e.g. a
+     * partially-initialized DM9000A keeps reporting "packet ready"
+     * forever), bail out instead of spinning inside the ISR forever
+     * and freezing the whole system. */
+    if (++rx_guard > 64)
+    {
+      printf("[DM9000A] WARNING: RX drain loop exceeded %u iterations in one ISR call, forcing exit (status stuck at DM9000_PKT_READY?).\n", rx_guard);
+      break;
+    }
     IOWR(dm9ka->regbase, IO_addr, MRCMD);
     usleep(STD_DELAY);
     rx_sts = IORD(dm9ka->regbase, IO_data);
@@ -253,12 +264,16 @@ int netisrs = 0;
 void dm9Ka_isr_wrap(void *context)
 {
   netisrs++;
+  if (netisrs <= 3)
+    printf("[DM9000A] IRQ fired (count: %d)\n", netisrs);
   dm9000a_isr((int)context);
 }
 #else
 void dm9Ka_isr_wrap(void *context, u_long intnum)
 {
   netisrs++;
+  if (netisrs <= 3)
+    printf("[DM9000A] IRQ fired (count: %d)\n", netisrs);
   dm9000a_isr((int)context);
 }
 #endif
