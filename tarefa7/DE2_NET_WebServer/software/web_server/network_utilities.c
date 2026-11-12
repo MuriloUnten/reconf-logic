@@ -15,7 +15,6 @@
 #include <sys/alt_flash.h>
 #include "includes.h"
 #include "io.h"
-#include "simple_socket_server.h"
 
 #include <alt_iniche_dev.h>
 
@@ -26,6 +25,23 @@
 #define IP4_ADDR(ipaddr, a,b,c,d) ipaddr = \
     htonl((((alt_u32)(a & 0xff) << 24) | ((alt_u32)(b & 0xff) << 16) | \
           ((alt_u32)(c & 0xff) << 8) | (alt_u32)(d & 0xff)))
+
+/* Fallback static network settings, used only if DHCP (already enabled via
+ * DHCP_CLIENT in the BSP's system.h) fails to obtain an address. */
+#define IPADDR0   10
+#define IPADDR1   3
+#define IPADDR2   2
+#define IPADDR3   175
+
+#define GWADDR0   10
+#define GWADDR1   3
+#define GWADDR2   2
+#define GWADDR3   254
+
+#define MSKADDR0  255
+#define MSKADDR1  255
+#define MSKADDR2  255
+#define MSKADDR3  0
 
 error_t generate_mac_addr(unsigned char mac_addr[6]);
 
