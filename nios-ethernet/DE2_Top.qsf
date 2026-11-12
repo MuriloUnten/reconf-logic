@@ -69,6 +69,8 @@ set_location_assignment PIN_A19 -to ENET_DATA[13]
 set_location_assignment PIN_E18 -to ENET_DATA[14]
 set_location_assignment PIN_D18 -to ENET_DATA[15]
 
+set_instance_assignment -name IO_STANDARD LVTTL -to ENET_DATA[0]
+
 # SDRAM Pins
 set_location_assignment PIN_AA7 -to DRAM_CLK
 set_location_assignment PIN_AA6 -to DRAM_CKE
