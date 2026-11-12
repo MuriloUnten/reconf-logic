@@ -82,6 +82,7 @@ unsigned int dm9000a_reset(unsigned char *mac_address)
 unsigned int TransmitPacket(unsigned char *data_ptr, unsigned int tx_len)
 {
   unsigned int i;
+  unsigned int tx_guard;
   dm9000a_iow(IMR, PAR_set);
   dm9000a_iow(0xFD, (tx_len >> 8) & 0xFF);
   dm9000a_iow(0xFC, tx_len & 0xFF);
@@ -91,8 +92,22 @@ unsigned int TransmitPacket(unsigned char *data_ptr, unsigned int tx_len)
     IOWR(DM9000A_INST_BASE, IO_data, (data_ptr[i+1]<<8) | data_ptr[i]);
   }
   dm9000a_iow(TCR, TCR_set | TX_REQUEST);
+  tx_guard = 0;
   while(!(dm9000a_ior(NSR) & 0x0C)) {
     usleep(STD_DELAY);
+    /* Safety valve: without this, a chip that never completes a
+     * transmit (e.g. no link partner / cable unplugged, or still not
+     * properly initialized) spins here forever. Since this runs in
+     * the "Inet main" task context (used by DHCP to send Discover),
+     * an infinite loop here freezes the whole system with no further
+     * output - exactly the silent hang we were chasing. */
+    if (++tx_guard > 50000)
+    {
+      printf("[DM9000A] WARNING: TransmitPacket() timed out waiting for TX complete (NSR bit 0x0C never set). Is the Ethernet cable connected to a live link? Aborting this send.\n");
+      dm9000a_iow(NSR, 0x00);
+      dm9000a_iow(IMR, INTR_set);
+      return DMFE_FAIL;
+    }
   }
   dm9000a_iow(NSR, 0x00);
   dm9000a_iow(IMR, INTR_set);
@@ -281,12 +296,21 @@ void dm9Ka_isr_wrap(void *context, u_long intnum)
 int dm9ka_init(int iface)
 {
   int err;
+  unsigned int nsr_val;
   DM9KA dm9ka;
   printf("[DM9000A] dm9ka_init() called. Hardware reset starting...\n");
   dm9ka = (DM9KA)nets[iface]->n_local;
   err = dm9000a_reset(dm9ka->mac_addr);
   printf("[DM9000A] Hardware reset finished. Return code: %d\n", err);
-  
+
+  /* NSR bit 6 (0x40) is the PHY link status bit: 1 = link OK, 0 = no
+   * link partner / cable not connected. Checking this up front tells
+   * us immediately whether a later TX timeout is a cabling issue or
+   * something else. */
+  nsr_val = dm9000a_ior(NSR);
+  printf("[DM9000A] NSR = 0x%02X -> Link status: %s\n",
+         nsr_val, (nsr_val & 0x40) ? "UP (cable connected)" : "DOWN (no link - check cable!)");
+
 #ifdef ALT_ENHANCED_INTERRUPT_API_PRESENT
   err = alt_ic_isr_register(0, dm9ka->intnum, (void*)dm9Ka_isr_wrap, (void *)iface, NULL);
 #else

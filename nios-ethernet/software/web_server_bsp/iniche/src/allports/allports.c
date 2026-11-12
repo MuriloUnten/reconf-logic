@@ -369,12 +369,14 @@ netmain_init(void)
    glog_with_type(LOG_TYPE_INFO, "INICHE LOG initialized", 1);
 #endif
 
+   printf("[NetMain] Calling ip_startup()...\n");
    msg = ip_startup();
    if (msg)
    {
       printf("inet startup error: %s\n", msg);
       panic("IP");
    }
+   printf("[NetMain] ip_startup() returned OK.\n");
 
 #if defined(MEMDEV_SIZE) && defined(VFS_FILES)
    init_memdev(); /* init the mem and null test devices */
@@ -428,7 +430,9 @@ netmain_init(void)
 #endif   /* USE_AUTOIP */
 
 #ifdef DHCP_CLIENT
+   printf("[NetMain] Calling dhc_setup() (this transmits the first DHCP Discover)...\n");
    dhc_setup();   /* kick off any DHCP clients */
+   printf("[NetMain] dhc_setup() returned.\n");
 #endif   /* DHCP_CLIENT */
 
 #ifdef DHCP_SERVER
@@ -589,6 +593,7 @@ netmain_init(void)
 #endif
    USE_ARG(e);    /* Avoid compiler warnings */
 
+   printf("[NetMain] netmain_init() finished, returning to tk_netmain().\n");
 } /* end of netmain_init() */
 
 

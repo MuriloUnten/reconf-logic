@@ -283,6 +283,7 @@ TK_ENTRY(tk_netmain)
    netmain_init(); /* initialize all modules */
 
    iniche_net_ready = TRUE;    /* let the other threads spin */
+   printf("[NetMain] iniche_net_ready = TRUE. rx_task should unblock now.\n");
 
    for (;;)
    {
