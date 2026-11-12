@@ -1,5 +1,8 @@
 *.zip
 
+# Projeto antigo, substituido por DE2_NET_WebServer - mantido so localmente
+tarefa7/DE2_NET/
+
 # -----------------------------------------------------------------------
 # Quartus Prime / Qsys / SOPC Builder / Nios II generated files.
 # Only reproducible tool output is ignored here - RTL/HDL sources,
