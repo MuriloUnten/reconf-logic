@@ -44,8 +44,8 @@
 #include "../a2_bsp/iniche/src/h/libport.h"
 #include "../a2_bsp/iniche/src/nios2/osport.h"
 #include "basic_io.h"
-#include "LCD.h"
 #include "altera_avalon_pio_regs.h"
+#include "http_server.h"
 /* Definition of task stack for the initial task which will initialize the NicheStack
  * TCP/IP Stack and then initialize the rest of the Simple Socket Server example tasks. 
  */
@@ -95,96 +95,14 @@ void SSSInitialTask(void *task_data)
 
 	/* Now that the stack is running, perform the application initialization steps */
 
-	/* Application Specific Task Launching Code Block Begin */
+	printf("\nStarting User_HW web server (RX_Task/TX_Task)\n");
 
-	printf("\nSimple Socket Server starting up\n");
+	start_web_server_tasks();
 
-	// Código começa aqui -----------------------------------------------------------------------
-	struct sockaddr_in sa;
-	int SocketFD;
-
-	LCD_Init();
-
-	char buffer[1024];
-	int port = 80;
-
-	SocketFD = socket(AF_INET, SOCK_STREAM, 6);
-	printf("Socket criado.\n");
-	sa.sin_family = AF_INET;
-	sa.sin_port = htons(port); // ALTERAR PORTA A SER UTILIZADA AQUI
-	sa.sin_addr.s_addr = inet_addr("192.168.1.73");
-	if (connect(SocketFD, (struct sockaddr *)&sa, sizeof sa) == -1) {
-		perror("Connection failed.\n");
-		printf("%s\n", strerror(errno));
-		close(SocketFD);
-		exit(EXIT_FAILURE);
-	}
-
-	msleep(1000);
-	char msg[12]= "Placa online";
-	if (send(SocketFD, msg, sizeof(msg), 0) < 0){
-		perror("Send()");
-		exit(EXIT_FAILURE);
-	} else{
-		printf("Msg enviada: Placa online\n");
-	}
-
-
-	int i, m1, m2, s1, s2;
-	unsigned long long count = 0;
-	i = 0;
-	char buf[1024];
-	char cmd[16] = "";
-	char start[16] = "start\0";
-	char stop[16] = "stop\0";
-	char reset[16] = "reset\0";
-	char blank[16] = "\0";
-	char LCD_Start[16] = " Start      \0";
-	char LCD_Stop[16]  = " Stop       \0";
-	char LCD_Reset[16] = " Reset      \0";
-
-	IOWR(A1_0_BASE, 0, 0x2); // reseta contagem
-
-	while(1){
-		// Verifica valor da contagem e mostra do display
-		count = IORD(A1_0_BASE, 0);
-		m1 = (count & 0xFF000000) >> 24;
-		m2 = (count & 0x00FF0000) >> 16;
-		s1 = (count & 0x0000FF00) >> 8;
-		s2 = count & 0x000000FF;
-		printf("%d%d:%d%d %x\n", m1, m2, s1, s2, count);
-		seg7_show(SEG7_DISPLAY_BASE, s2 + (s1<<4) + (m2<<8) + (m1<<12));
-
-		// Recebe cmd
-		if (recv(SocketFD, buf, sizeof(buf), 0) < 0) {
-			perror("Recv()");
-			exit(EXIT_FAILURE);
-		}
-		else {
-			if (strcmp(buf, blank)) // imprime só se não for mensagem vazia
-				printf("Msg recebida: %s\n", buf);
-			memcpy(cmd, buf, 16 * sizeof(char));
-		}
-
-		// Executa cmd
-		if(!strcmp(cmd, start)){
-			IOWR(A1_0_BASE, 0, 0x1); // liga contagem
-			LCD_Clear();
-			LCD_Show_Text(LCD_Start);
-		}
-		else if (!strcmp(cmd, stop)){
-			IOWR(A1_0_BASE, 0, 0x0); // desliga contagem
-			LCD_Clear();
-			LCD_Show_Text(LCD_Stop);
-		}
-		else if (!strcmp(cmd, reset)){
-			IOWR(A1_0_BASE, 0, 0x2); // reseta contagem
-			LCD_Clear();
-			LCD_Show_Text(LCD_Reset);
-		}
-
-		msleep(100);
-	}
+	/* RX_Task/TX_Task now own the application. A task created with
+	 * OSTaskCreateExt must never return, so just idle forever. */
+	while (1)
+		TK_SLEEP(100);
 }
 
 /* Main creates a single task, SSSInitialTask, and starts task scheduler.

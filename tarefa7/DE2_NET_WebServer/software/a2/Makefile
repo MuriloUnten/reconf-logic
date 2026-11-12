@@ -151,6 +151,8 @@ C_SRCS += tse_my_system.c
 C_SRCS += LCD.c
 C_SRCS += SSS_DE2_115.c
 C_SRCS += dm9000a.c
+C_SRCS += http_server.c
+C_SRCS += user_hw.c
 CXX_SRCS :=
 ASM_SRCS :=
 
