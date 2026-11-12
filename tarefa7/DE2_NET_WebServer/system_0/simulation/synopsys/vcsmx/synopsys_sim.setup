@@ -1,0 +1,22 @@
+
+WORK > DEFAULT
+DEFAULT:          ./libraries/work/            
+work:             ./libraries/work/            
+SD_CLK:           ./libraries/SD_CLK/          
+SD_DAT:           ./libraries/SD_DAT/          
+switch_pio:       ./libraries/switch_pio/      
+button_pio:       ./libraries/button_pio/      
+led_green:        ./libraries/led_green/       
+led_red:          ./libraries/led_red/         
+lcd_16207_0:      ./libraries/lcd_16207_0/     
+timer_0:          ./libraries/timer_0/         
+uart_0:           ./libraries/uart_0/          
+jtag_uart_0:      ./libraries/jtag_uart_0/     
+epcs_controller:  ./libraries/epcs_controller/ 
+sdram_0:          ./libraries/sdram_0/         
+altera_ver:       ./libraries/altera_ver/      
+lpm_ver:          ./libraries/lpm_ver/         
+sgate_ver:        ./libraries/sgate_ver/       
+altera_mf_ver:    ./libraries/altera_mf_ver/   
+altera_lnsim_ver: ./libraries/altera_lnsim_ver/
+cycloneii_ver:    ./libraries/cycloneii_ver/   

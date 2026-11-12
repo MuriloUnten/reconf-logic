@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags=""
+   categories="" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element cfi_flash_0_external_mem_bfm
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element sdram_0_my_partner
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element system_0_inst
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element system_0_inst_clk_50_clk_in_bfm
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
+   element system_0_inst_merged_resets_in_reset_bfm
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+   }
+   element tri_state_bridge_0_bridge_0_tcb_translator
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element tri_state_bridge_0_pinSharer_0_pin_divider
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="EP2C35F672C6" />
+ <parameter name="deviceFamily" value="Cyclone II" />
+ <parameter name="deviceSpeedGrade" value="6" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="DE2_NET.qpf" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="1" />
+ <parameter name="timeStamp" value="1621825458951" />
+ <parameter name="useTestBenchNamingPattern" value="true" />
+ <instanceScript></instanceScript>
+ <module kind="system_0" version="1.0" enabled="1" name="system_0_inst">
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_UNIQUE_ID" value="system_0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+  <parameter name="AUTO_DEVICE" value="EP2C35F672C6" />
+  <parameter name="AUTO_CLK_50_CLK_IN_CLOCK_RATE" value="0" />
+  <parameter name="AUTO_CLK_50_CLK_IN_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_50_CLK_IN_RESET_DOMAIN" value="1" />
+ </module>
+ <module
+   kind="altera_avalon_clock_source"
+   version="13.0"
+   enabled="1"
+   name="system_0_inst_clk_50_clk_in_bfm">
+  <parameter name="CLOCK_RATE" value="50000000" />
+  <parameter name="CLOCK_UNIT" value="1" />
+ </module>
+ <module
+   kind="altera_avalon_reset_source"
+   version="13.0"
+   enabled="1"
+   name="system_0_inst_merged_resets_in_reset_bfm">
+  <parameter name="ASSERT_HIGH_RESET" value="0" />
+  <parameter name="INITIAL_RESET_CYCLES" value="50" />
+ </module>
+ <module
+   kind="altera_sdram_partner_module"
+   version="11.0"
+   enabled="1"
+   name="sdram_0_my_partner">
+  <parameter name="SDRAM_DATA_WIDTH" value="16" />
+  <parameter name="SDRAM_BANK_WIDTH" value="2" />
+  <parameter name="SDRAM_NUM_CHIPSELECTS" value="1" />
+  <parameter name="CAS_LATENCY" value="3" />
+  <parameter name="SDRAM_COL_WIDTH" value="8" />
+  <parameter name="SDRAM_ROW_WIDTH" value="12" />
+  <parameter name="CONTR_NAME" value="system_0_sdram_0" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+ </module>
+ <module
+   kind="altera_tristate_conduit_bridge_translator"
+   version="13.0"
+   enabled="1"
+   name="tri_state_bridge_0_bridge_0_tcb_translator">
+  <parameter name="CHAIN_LENGTH" value="4" />
+  <parameter name="MODULE_ORIGIN_LIST">tri_state_bridge_0_pinSharer_0.tcm,tri_state_bridge_0_pinSharer_0.tcm,tri_state_bridge_0_pinSharer_0.tcm,tri_state_bridge_0_pinSharer_0.tcm,tri_state_bridge_0_pinSharer_0.tcm</parameter>
+  <parameter name="SIGNAL_ORIGIN_LIST">tri_state_bridge_0_data,tri_state_bridge_0_readn,write_n_to_the_cfi_flash_0,tri_state_bridge_0_address,select_n_to_the_cfi_flash_0</parameter>
+  <parameter name="SIGNAL_ORIGIN_TYPE">Bidirectional,Output,Output,Output,Output</parameter>
+  <parameter name="SIGNAL_ORIGIN_WIDTH" value="8,1,1,22,1" />
+ </module>
+ <module
+   kind="altera_conduit_pin_divider"
+   version="13.0"
+   enabled="1"
+   name="tri_state_bridge_0_pinSharer_0_pin_divider">
+  <parameter name="CHAIN_LENGTH" value="4" />
+  <parameter name="MODULE_ORIGIN_LIST">cfi_flash_0.tcm,cfi_flash_0.tcm,cfi_flash_0.tcm,cfi_flash_0.tcm,cfi_flash_0.tcm</parameter>
+  <parameter name="SIGNAL_ORIGIN_LIST">cfi_flash_0_tcm_address_out,cfi_flash_0_tcm_read_n_out,cfi_flash_0_tcm_write_n_out,cfi_flash_0_tcm_data_out,cfi_flash_0_tcm_chipselect_n_out</parameter>
+  <parameter name="SIGNAL_ORIGIN_TYPE">Output,Output,Output,Bidirectional,Output</parameter>
+  <parameter name="SIGNAL_ORIGIN_WIDTH" value="22,1,1,8,1" />
+  <parameter name="SHARED_SIGNAL_LIST">tri_state_bridge_0_address,tri_state_bridge_0_readn,write_n_to_the_cfi_flash_0,tri_state_bridge_0_data,select_n_to_the_cfi_flash_0</parameter>
+ </module>
+ <module
+   kind="altera_external_memory_bfm"
+   version="13.0"
+   enabled="1"
+   name="cfi_flash_0_external_mem_bfm">
+  <parameter name="USE_BYTEENABLE" value="0" />
+  <parameter name="USE_CHIPSELECT" value="1" />
+  <parameter name="USE_WRITE" value="1" />
+  <parameter name="USE_READ" value="1" />
+  <parameter name="USE_OUTPUTENABLE" value="0" />
+  <parameter name="USE_BEGINTRANSFER" value="0" />
+  <parameter name="USE_RESET" value="0" />
+  <parameter name="ACTIVE_LOW_BYTEENABLE" value="0" />
+  <parameter name="ACTIVE_LOW_CHIPSELECT" value="1" />
+  <parameter name="ACTIVE_LOW_WRITE" value="1" />
+  <parameter name="ACTIVE_LOW_READ" value="1" />
+  <parameter name="ACTIVE_LOW_OUTPUTENABLE" value="0" />
+  <parameter name="ACTIVE_LOW_BEGINTRANSFER" value="0" />
+  <parameter name="ACTIVE_LOW_RESET" value="0" />
+  <parameter name="SIGNAL_ADDRESS_ROLES" value="tcm_address_out" />
+  <parameter name="SIGNAL_DATA_ROLES" value="tcm_data_out" />
+  <parameter name="SIGNAL_WRITE_ROLES" value="tcm_write_n_out" />
+  <parameter name="SIGNAL_READ_ROLES" value="tcm_read_n_out" />
+  <parameter name="SIGNAL_BYTEENABLE_ROLES" value="tcm_byteenable_out" />
+  <parameter name="SIGNAL_CHIPSELECT_ROLES">tcm_chipselect_n_out</parameter>
+  <parameter name="SIGNAL_OUTPUTENABLE_ROLES">tcm_outputenable_out</parameter>
+  <parameter name="SIGNAL_BEGINTRANSFER_ROLES">tcm_begintransfer_out</parameter>
+  <parameter name="SIGNAL_RESET_ROLES" value="tcm_reset_out" />
+  <parameter name="CDT_ADDRESS_W" value="22" />
+  <parameter name="CDT_SYMBOL_W" value="8" />
+  <parameter name="CDT_NUMSYMBOLS" value="1" />
+  <parameter name="INIT_FILE">altera_external_memory_bfm.hex</parameter>
+  <parameter name="CDT_READ_LATENCY" value="0" />
+  <parameter name="VHDL_ID" value="0" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="0" />
+ </module>
+ <connection
+   kind="clock"
+   version="13.0"
+   start="system_0_inst_clk_50_clk_in_bfm.clk"
+   end="system_0_inst.clk_50_clk_in" />
+ <connection
+   kind="clock"
+   version="13.0"
+   start="system_0_inst_clk_50_clk_in_bfm.clk"
+   end="system_0_inst_merged_resets_in_reset_bfm.clk" />
+ <connection
+   kind="reset"
+   version="13.0"
+   start="system_0_inst_merged_resets_in_reset_bfm.reset"
+   end="system_0_inst.merged_resets_in_reset" />
+ <connection
+   kind="conduit"
+   version="13.0"
+   start="sdram_0_my_partner.conduit"
+   end="system_0_inst.sdram_0_wire">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="13.0"
+   start="tri_state_bridge_0_bridge_0_tcb_translator.in"
+   end="system_0_inst.tri_state_bridge_0_bridge_0_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="13.0"
+   start="tri_state_bridge_0_pinSharer_0_pin_divider.in"
+   end="tri_state_bridge_0_bridge_0_tcb_translator.out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="13.0"
+   start="cfi_flash_0_external_mem_bfm.conduit"
+   end="tri_state_bridge_0_pinSharer_0_pin_divider.cfi_flash_0_tcm">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="clock"
+   version="13.0"
+   start="system_0_inst_clk_50_clk_in_bfm.clk"
+   end="sdram_0_my_partner.clk" />
+ <connection
+   kind="clock"
+   version="13.0"
+   start="system_0_inst_clk_50_clk_in_bfm.clk"
+   end="cfi_flash_0_external_mem_bfm.clk" />
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

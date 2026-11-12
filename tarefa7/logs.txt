@@ -1,0 +1,14 @@
+--- Nios II / uC/OS-II System Started ---
+[Debug] Lendo Vendor ID do DM9000A via Avalon Bus...
+[Debug] Vendor ID L: 0x90 | Vendor ID H: 0x19
+[Debug] FALHA: Chip DM9000A nao respondeu (Retornou L:0x90 H:0x19).
+[Debug] -> Causa provável: O Pin Planner no Quartus nao esta mapeado para os pinos corretos.
+[Main] Initializing NicheStack network stack...
+[Main] Starting uC/OS-II scheduler...
+[RX Task] Waiting for IP acquisition via DHCP...
+  [Debug] Elapsed: 1s | netlist addr: 0x84c970 | ifp ptr: 0x0
+  [Debug] Elapsed: 2s | netlist addr: 0x84c970 | ifp ptr: 0x0
+  [Debug] Elapsed: 3s | netlist addr: 0x84c970 | ifp ptr: 0x0
+  [Debug] Elapsed: 4s | netlist addr: 0x84c970 | ifp ptr: 0x0
+  [Debug] Elapsed: 5s | netlist addr: 0x84c970 | ifp ptr: 0x0
+  [DHCP] Network interface not found by driver (netlist.q_head is NULL).
