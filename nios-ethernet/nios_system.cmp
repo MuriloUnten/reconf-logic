@@ -1,0 +1,25 @@
+	component nios_system is
+		port (
+			clk_clk                    : in    std_logic                     := 'X';             -- clk
+			reset_reset_n              : in    std_logic                     := 'X';             -- reset_n
+			sdram_wire_addr            : out   std_logic_vector(11 downto 0);                    -- addr
+			sdram_wire_ba              : out   std_logic_vector(1 downto 0);                     -- ba
+			sdram_wire_cas_n           : out   std_logic;                                        -- cas_n
+			sdram_wire_cke             : out   std_logic;                                        -- cke
+			sdram_wire_cs_n            : out   std_logic;                                        -- cs_n
+			sdram_wire_dq              : inout std_logic_vector(15 downto 0) := (others => 'X'); -- dq
+			sdram_wire_dqm             : out   std_logic_vector(1 downto 0);                     -- dqm
+			sdram_wire_ras_n           : out   std_logic;                                        -- ras_n
+			sdram_wire_we_n            : out   std_logic;                                        -- we_n
+			dm9000a_conduit_iOSC_50    : in    std_logic                     := 'X';             -- iOSC_50
+			dm9000a_conduit_ENET_DATA  : inout std_logic_vector(15 downto 0) := (others => 'X'); -- ENET_DATA
+			dm9000a_conduit_ENET_CMD   : out   std_logic;                                        -- ENET_CMD
+			dm9000a_conduit_ENET_RD_N  : out   std_logic;                                        -- ENET_RD_N
+			dm9000a_conduit_ENET_WR_N  : out   std_logic;                                        -- ENET_WR_N
+			dm9000a_conduit_ENET_CS_N  : out   std_logic;                                        -- ENET_CS_N
+			dm9000a_conduit_ENET_RST_N : out   std_logic;                                        -- ENET_RST_N
+			dm9000a_conduit_ENET_CLK   : out   std_logic;                                        -- ENET_CLK
+			dm9000a_conduit_ENET_INT   : in    std_logic                     := 'X'              -- ENET_INT
+		);
+	end component nios_system;
+

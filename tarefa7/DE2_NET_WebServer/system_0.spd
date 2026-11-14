@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="system_0/simulation/submodules/system_0_SD_CLK.v"
+   type="VERILOG"
+   library="SD_CLK" />
+ <file
+   path="system_0/simulation/submodules/system_0_SD_DAT.v"
+   type="VERILOG"
+   library="SD_DAT" />
+ <file
+   path="system_0/simulation/submodules/system_0_switch_pio.v"
+   type="VERILOG"
+   library="switch_pio" />
+ <file
+   path="system_0/simulation/submodules/system_0_button_pio.v"
+   type="VERILOG"
+   library="button_pio" />
+ <file
+   path="system_0/simulation/submodules/system_0_led_green.v"
+   type="VERILOG"
+   library="led_green" />
+ <file
+   path="system_0/simulation/submodules/system_0_led_red.v"
+   type="VERILOG"
+   library="led_red" />
+ <file
+   path="system_0/simulation/submodules/system_0_lcd_16207_0.v"
+   type="VERILOG"
+   library="lcd_16207_0" />
+ <file
+   path="system_0/simulation/submodules/system_0_timer_0.v"
+   type="VERILOG"
+   library="timer_0" />
+ <file
+   path="system_0/simulation/submodules/system_0_uart_0.v"
+   type="VERILOG"
+   library="uart_0" />
+ <file
+   path="system_0/simulation/submodules/system_0_jtag_uart_0.v"
+   type="VERILOG"
+   library="jtag_uart_0" />
+ <file
+   path="system_0/simulation/submodules/system_0_epcs_controller.v"
+   type="VERILOG"
+   library="epcs_controller" />
+ <file
+   path="system_0/simulation/submodules/system_0_epcs_controller_boot_rom.hex"
+   type="HEX"
+   library="epcs_controller" />
+ <file
+   path="system_0/simulation/submodules/system_0_sdram_0.v"
+   type="VERILOG"
+   library="sdram_0" />
+ <file
+   path="system_0/simulation/submodules/system_0_sdram_0_test_component.v"
+   type="VERILOG"
+   library="sdram_0" />
+ <file path="system_0/simulation/system_0.v" type="VERILOG" />
+ <topLevel name="system_0" />
+ <deviceFamily name="cycloneii" />
+ <modelMap
+   controllerPath="system_0.epcs_controller"
+   modelPath="system_0.epcs_controller" />
+</simPackage>
